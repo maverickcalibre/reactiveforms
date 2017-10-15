@@ -30,9 +30,9 @@ var CustomerComponent = (function () {
     };
     CustomerComponent.prototype.ngOnInit = function () {
         this.customerForm = this.fb.group({
-            firstName: { value: 'Noor', disabled: true },
-            lastName: { value: 'Shaikh', disabled: false },
-            email: '',
+            firstName: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
+            lastName: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(50)]],
+            email: ['', [forms_1.Validators.required, forms_1.Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+')]],
             sendCatalog: true
         });
         // this.customerForm = new FormGroup({
