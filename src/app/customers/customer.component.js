@@ -33,14 +33,20 @@ var CustomerComponent = (function () {
             firstName: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
             lastName: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(50)]],
             email: ['', [forms_1.Validators.required, forms_1.Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+')]],
+            phone: [''],
+            notification: ['email'],
             sendCatalog: true
         });
-        // this.customerForm = new FormGroup({
-        //     firstName: new FormControl(),
-        //     lastName: new FormControl(),
-        //     email: new FormControl(),
-        //     sendCatalog: new FormControl(true)
-        // });
+    };
+    CustomerComponent.prototype.setNotification = function (notifyVia) {
+        var phoneControl = this.customerForm.get('phone');
+        if (notifyVia === 'text') {
+            phoneControl.setValidators([forms_1.Validators.required]);
+        }
+        else {
+            phoneControl.clearValidators();
+        }
+        phoneControl.updateValueAndValidity();
     };
     return CustomerComponent;
 }());

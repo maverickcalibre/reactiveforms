@@ -33,15 +33,21 @@ export class CustomerComponent implements OnInit {
             firstName: ['', [Validators.required, Validators.minLength(3)]],
             lastName: ['',[Validators.required,Validators.maxLength(50)]],
             email: ['',[Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+')]],
+            phone: [''],
+            notification: ['email'],
             sendCatalog: true
         });
+    }
 
-        // this.customerForm = new FormGroup({
-        //     firstName: new FormControl(),
-        //     lastName: new FormControl(),
-        //     email: new FormControl(),
-        //     sendCatalog: new FormControl(true)
-        // });
+    setNotification(notifyVia: string): void {
+        const phoneControl = this.customerForm.get('phone');
+        if(notifyVia === 'text'){
+            phoneControl.setValidators([Validators.required]);
+        }else{
+            phoneControl.clearValidators();
+        }
+
+        phoneControl.updateValueAndValidity();
     }
 
  }
