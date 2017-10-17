@@ -11,6 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var customer_1 = require("./customer");
+function ratingRange(min, max) {
+    return function (c) {
+        if (c.value != undefined && (isNaN(c.value) || c.value < min || c.value > max)) {
+            return { 'range': true };
+        }
+        return null;
+    };
+}
 var CustomerComponent = (function () {
     function CustomerComponent(fb) {
         this.fb = fb;
@@ -35,6 +43,7 @@ var CustomerComponent = (function () {
             email: ['', [forms_1.Validators.required, forms_1.Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+')]],
             phone: [''],
             notification: ['email'],
+            rating: ['', ratingRange(1, 5)],
             sendCatalog: true
         });
     };
