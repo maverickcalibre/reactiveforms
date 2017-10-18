@@ -60,6 +60,7 @@ var CustomerComponent = (function () {
             rating: ['', ratingRange(1, 5)],
             sendCatalog: true
         });
+        this.customerForm.get('notification').valueChanges.subscribe(function (value) { return console.log(value); });
     };
     CustomerComponent.prototype.setNotification = function (notifyVia) {
         var phoneControl = this.customerForm.get('phone');
