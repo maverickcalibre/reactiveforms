@@ -34,6 +34,10 @@ var CustomerComponent = (function () {
     function CustomerComponent(fb) {
         this.fb = fb;
         this.customer = new customer_1.Customer();
+        this.validationMessages = {
+            required: 'Please enter your email address.',
+            pattern: 'Please enter a valid email address.'
+        };
     }
     CustomerComponent.prototype.save = function () {
         console.log(this.customerForm);
@@ -48,6 +52,7 @@ var CustomerComponent = (function () {
         });
     };
     CustomerComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.customerForm = this.fb.group({
             firstName: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
             lastName: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(50)]],
@@ -60,7 +65,7 @@ var CustomerComponent = (function () {
             rating: ['', ratingRange(1, 5)],
             sendCatalog: true
         });
-        this.customerForm.get('notification').valueChanges.subscribe(function (value) { return console.log(value); });
+        this.customerForm.get('notification').valueChanges.subscribe(function (value) { return _this.setNotification(value); });
     };
     CustomerComponent.prototype.setNotification = function (notifyVia) {
         var phoneControl = this.customerForm.get('phone');
