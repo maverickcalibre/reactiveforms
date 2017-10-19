@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+require("rxjs/add/operator/debounceTime");
 var customer_1 = require("./customer");
 function emailMatcher(c) {
     var emailControl = c.get('email');
@@ -34,6 +35,10 @@ var CustomerComponent = (function () {
     function CustomerComponent(fb) {
         this.fb = fb;
         this.customer = new customer_1.Customer();
+        this.validateMessages = {
+            required: 'Please enter your email address.',
+            pattern: 'Please enter a valid email address.'
+        };
     }
     CustomerComponent.prototype.save = function () {
         console.log(this.customerForm);
@@ -62,6 +67,8 @@ var CustomerComponent = (function () {
             sendCatalog: true
         });
         this.customerForm.get('notification').valueChanges.subscribe(function (value) { return _this.setNotification(value); });
+        var emailControl = this.customerForm.get('emailGroup.email');
+        emailControl.valueChanges.debounceTime(1000).subscribe(function (value) { return _this.setMessage(emailControl); });
     };
     CustomerComponent.prototype.setNotification = function (notifyVia) {
         var phoneControl = this.customerForm.get('phone');
@@ -72,6 +79,15 @@ var CustomerComponent = (function () {
             phoneControl.clearValidators();
         }
         phoneControl.updateValueAndValidity();
+    };
+    CustomerComponent.prototype.setMessage = function (c) {
+        var _this = this;
+        this.emailMessage = '';
+        if ((c.touched || c.dirty) && c.errors) {
+            this.emailMessage = Object.keys(c.errors).map(function (key) {
+                return _this.validateMessages[key];
+            }).join(' ');
+        }
     };
     return CustomerComponent;
 }());
