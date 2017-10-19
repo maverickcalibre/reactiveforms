@@ -34,10 +34,6 @@ var CustomerComponent = (function () {
     function CustomerComponent(fb) {
         this.fb = fb;
         this.customer = new customer_1.Customer();
-        this.validationMessages = {
-            required: 'Please enter your email address.',
-            pattern: 'Please enter a valid email address.'
-        };
     }
     CustomerComponent.prototype.save = function () {
         console.log(this.customerForm);
