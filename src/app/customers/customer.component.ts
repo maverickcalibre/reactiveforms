@@ -71,20 +71,24 @@ export class CustomerComponent implements OnInit {
             notification: ['email'],
             rating: ['', ratingRange(1, 5)],
             sendCatalog: true,
-            addresses: this.fb.group({
-                        addressType: 'home',
-                        street1: '',
-                        street2: '',
-                        city: '',
-                        state: '',
-                        zip: ''
-            })
+            addresses: this.buildAddress()
         });
 
         this.customerForm.get('notification').valueChanges.subscribe(value => this.setNotification(value));
 
         const emailControl = this.customerForm.get('emailGroup.email');
         emailControl.valueChanges.debounceTime(1000).subscribe(value => this.setMessage(emailControl));
+    }
+
+    buildAddress(): FormGroup{
+        return this.fb.group({
+            addressType: 'home',
+            street1: '',
+            street2: '',
+            city: '',
+            state: '',
+            zip: ''
+        })
     }
 
     setNotification(notifyVia: string): void {
