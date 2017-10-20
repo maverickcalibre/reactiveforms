@@ -95,6 +95,10 @@ export class CustomerComponent implements OnInit {
         })
     }
 
+    addAddress():void{
+        this.addresses.push(this.buildAddress());
+    }
+
     setNotification(notifyVia: string): void {
         const phoneControl = this.customerForm.get('phone');
         if(notifyVia === 'text'){

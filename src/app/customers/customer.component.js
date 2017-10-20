@@ -88,6 +88,9 @@ var CustomerComponent = (function () {
             zip: ''
         });
     };
+    CustomerComponent.prototype.addAddress = function () {
+        this.addresses.push(this.buildAddress());
+    };
     CustomerComponent.prototype.setNotification = function (notifyVia) {
         var phoneControl = this.customerForm.get('phone');
         if (notifyVia === 'text') {
